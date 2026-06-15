@@ -1,23 +1,23 @@
 # Linux System Monitor
 
-Skrypt w bashu który monitoruje zużycie CPU, RAM i dysku w czasie rzeczywistym.
+A bash script that monitors CPU, RAM and disk usage in real time.
 
-Zacząłem ten projekt żeby nauczyć się Linuksa od podstaw — jak działa system, gdzie trzyma dane o sobie i jak to można wyciągnąć. Okazało się że Linux przechowuje wszystko w plikach jak `/proc/stat` czy `/proc/meminfo` i można to czytać zwykłymi komendami.
-
----
-
-## Co robi
-
-- Pokazuje zużycie CPU w procentach
-- Pokazuje zużycie RAM w procentach
-- Pokazuje zużycie dysku
-- Koloruje output — zielony gdy OK, żółty gdy powyżej 50%, czerwony gdy powyżej 80%
-- Zapisuje dane do pliku logu z godziną i datą
-- Odświeża się co 5 sekund
+I started this project to learn Linux from scratch — how the system works internally, where it stores data about itself and how you can read it. Turns out Linux keeps everything in files like `/proc/stat` or `/proc/meminfo` and you can read them with basic commands.
 
 ---
 
-## Jak uruchomić
+## What it does
+
+- Shows CPU usage in percent
+- Shows RAM usage in percent
+- Shows disk usage
+- Color codes the output — green when fine, yellow above 50%, red above 80%
+- Saves data to a log file with timestamp
+- Refreshes every 5 seconds
+
+---
+
+## How to run
 
 ```bash
 git clone https://github.com/fathulus/linux-system-monitor.git
@@ -26,32 +26,32 @@ chmod +x cpu_ram_monitor.sh
 ./cpu_ram_monitor.sh
 ```
 
-Zatrzymujesz przez `Ctrl+C`.
+Stop it with `Ctrl+C`.
 
 ---
 
-## Jak to działa
+## How it works
 
-CPU liczy się z dwóch odczytów `/proc/stat` w odstępie 1 sekundy — sam plik pokazuje tylko liczniki od startu systemu więc trzeba porównać dwa snapshoty żeby dostać rzeczywiste zużycie w danej chwili. To było najtrudniejsze do zrozumienia na początku.
+CPU is calculated from two reads of `/proc/stat` one second apart — the file only shows counters since boot so you have to compare two snapshots to get actual usage at a given moment. That was the trickiest part to figure out.
 
-RAM pochodzi z `/proc/meminfo` — wyciągam `MemTotal` i `MemAvailable` i liczę różnicę.
+RAM comes from `/proc/meminfo` — I grab `MemTotal` and `MemAvailable` and calculate the difference.
 
-Dysk czytam przez `df /` i wyciągam odpowiednią kolumnę przez `awk`.
-
----
-
-## Czego się nauczyłem
-
-- Jak Linux przechowuje dane systemowe w `/proc`
-- Pisanie funkcji w bashu
-- Wyciąganie konkretnych kolumn z tekstu przez `awk`
-- Kolory w terminalu przez kody ANSI
-- Zapis do logów i praca z plikami
-- Podstawy gita i GitHub
+Disk is read with `df /` and I pull the right column using `awk`.
 
 ---
 
-## Pliki
+## What I learned
+
+- How Linux stores system data in `/proc`
+- Writing functions in bash
+- Extracting specific columns from text output using `awk`
+- Terminal colors with ANSI escape codes
+- Writing logs with timestamps
+- Git basics and pushing to GitHub
+
+---
+
+## Files
 
 ```
 linux-system-monitor/
@@ -63,4 +63,4 @@ linux-system-monitor/
 
 ---
 
-Pisane na Ubuntu 18.04 w VirtualBoxie.
+Built on Ubuntu 18.04 in VirtualBox.
